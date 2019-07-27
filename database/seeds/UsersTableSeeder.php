@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create(['name'=>'Ronny PA', 'email' => 'ronny.polloqueri@gmail.com', 'password' => 'Demo_Laravel']);
+        User::create(['name'=>'Ronny PA', 'email' => 'ronny.polloqueri@gmail.com', 'password' => Hash::make('Demo_Laravel')]);
     	factory(App\User::class)->times(10)->create();
     }
 }

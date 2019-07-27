@@ -14,7 +14,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(5);
+        return view('posts.index', ['posts' => $posts]);
+    }
+
+    public function myposts()
+    {
+        $user_id = \Auth::user()->id;
+        $posts = Post::where('user_id', $user_id)->paginate(5);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -58,7 +65,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -70,7 +77,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update($request->post);
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -81,6 +89,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('posts.index');
     }
 }
