@@ -12,6 +12,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
         	@foreach($posts as $post)
+
+            @can('view', $post);
             <div class="card">
                 <div class="card-header">{{$post->titulo}}</div>
 
@@ -32,6 +34,7 @@
                 </div>
             </div>
             <br>
+            @endcan
             @endforeach
             {{ $posts->links() }}
         </div>
