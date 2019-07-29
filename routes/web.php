@@ -11,12 +11,15 @@
 |
 */
 
-Route::get('posts/my', 'PostController@myposts')->name('posts.my');
-Route::resources(['posts'=> 'PostController']);
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function(){
+	Route::get('posts/my', 'PostController@myposts')->name('posts.my');
+	Route::resources(['posts'=> 'PostController']);
+	Route::get('/home', 'HomeController@index')->name('home');
+});
+
