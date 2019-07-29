@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -89,6 +90,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if (Auth::user()->cant('delete', $post)){
+            return redirect()->route('posts.my')
+            ->with('message', 'No tienes permisos para eliminar este post.');
+        }
         $post->delete();
         return redirect()->route('posts.index');
     }
