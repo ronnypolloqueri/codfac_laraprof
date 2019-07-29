@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth', 'verified']], function(){
 	Route::get('posts/my', 'PostController@myposts')->name('posts.my');
 	Route::resources(['posts'=> 'PostController']);
 	Route::get('/home', 'HomeController@index')->name('home');
