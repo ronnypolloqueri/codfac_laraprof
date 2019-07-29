@@ -78,6 +78,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('delete', $post);
         $post->update($request->post);
         return redirect()->route('posts.index');
     }
