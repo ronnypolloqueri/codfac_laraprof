@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -91,7 +92,16 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {       
-        $this->authorize('delete', $post);
+        /* si quisiera validar para otro usuario podría hacer esto */
+        //if (Gate::forUser($other_user)->denies('delete-post', $post)){
+        /* lo contrario a denies es allows */
+        //if (Gate::denies('delete-post', $post)){
+        if (Gate::denies('delete-post', $post)){
+            return redirect()->back()->with(['message' => 'No estas autorizado para eliminar este post.']);
+        }
+
+        // cumple la misma funcion que Gate pero usando policies
+        //$this->authorize('delete', $post);
 
         $post->delete();
         return redirect()->route('posts.index');

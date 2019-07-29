@@ -28,7 +28,14 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        /* Registrar el método definido abajo */
+        $this->deleteAction();
+    }
 
-        //
+    public function deleteAction()
+    {
+        Gate::define('delete-post', function($user, $post){
+            return $user->id == $post->user_id;
+        });
     }
 }
