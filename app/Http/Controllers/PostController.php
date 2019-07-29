@@ -89,11 +89,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {
-        if (Auth::user()->cant('delete', $post)){
-            return redirect()->route('posts.my')
-            ->with('message', 'No tienes permisos para eliminar este post.');
-        }
+    {       
+        $this->authorize('delete', $post);
+
         $post->delete();
         return redirect()->route('posts.index');
     }
