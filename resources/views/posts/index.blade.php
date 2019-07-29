@@ -13,7 +13,6 @@
         <div class="col-md-12">
         	@foreach($posts as $post)
 
-            @can('view', $post);
             <div class="card">
                 <div class="card-header">{{$post->titulo}}</div>
 
@@ -21,11 +20,15 @@
                     {{ $post->post }}
                 </div>
                 <div class="d-flex justify-content-end ml-2">
+
+            @can('view', $post);
                 	<form action="{{route('posts.destroy', ['post' => $post ])}}" method="POST">
                 		@csrf
                 		@method('DELETE')
                 		<input class="btn btn-danger" type="submit" value="Eliminar">
                 	</form>
+                    
+            @endcan
                     <a class="btn btn-primary" 
                     href="{{route('posts.edit', ['post' => $post]) }}">Editar</a>
                     <a class="btn btn-info" 
@@ -34,7 +37,6 @@
                 </div>
             </div>
             <br>
-            @endcan
             @endforeach
             {{ $posts->links() }}
         </div>
