@@ -17,7 +17,7 @@
                 <div class="card-header">{{$post->titulo}}</div>
 
                 <div class="card-body">
-                    {{ $post->post }}
+                    {{ $post->contenido }}
                 </div>
                 <div class="d-flex justify-content-end ml-2">
 

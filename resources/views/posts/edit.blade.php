@@ -13,8 +13,8 @@
                 		@csrf
                 		<input class="form-control" type="" name="titulo" value="{{$post->titulo}}">
                 		<br>
-                		<textarea class="form-control" name="post">
-                			{{$post->post}}
+                		<textarea class="form-control" name="contenido">
+                			{{$post->contenido}}
                 		</textarea>
                 		<br>
                 		<div class="d-flex justify-content-end ml-2">

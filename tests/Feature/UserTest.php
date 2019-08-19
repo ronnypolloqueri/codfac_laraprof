@@ -15,7 +15,7 @@ class UserTest extends BrowserTest
      * @test
      */
     public function login(){
-	    $user = factory(User::class)->create([
+	    $user = create(\App\User::class, [
 		    'password' => Hash::make('passwdtest')
 	    ]);
 
@@ -31,7 +31,7 @@ class UserTest extends BrowserTest
      * @test
      */
     public function login_fails(){
-	    $user = factory(User::class)->create([
+	    $user = create(\App\User::class,[
 		    'password' => Hash::make('passwdtest')
 	    ]);
 
