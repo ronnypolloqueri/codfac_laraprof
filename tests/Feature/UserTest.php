@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use \App\User;
+use \App\Post;
 
 class UserTest extends BrowserTest
 {
@@ -75,5 +76,28 @@ class UserTest extends BrowserTest
     	*/ 
 	    $user = User::get()->first();
 	    $this->assertEquals($data['name'], $user->name);
+    }
+
+    /**
+    * @test
+    */
+    public function adds_post(){
+    	$this->assertEquals(0, Post::count());
+
+    	$user = create(\App\User::class);
+
+    	$this->actingAs($user);
+
+    	$data = [
+    		'titulo' => 'Post title',
+    		'contenido' => 'Lorem ipsm dolor sit amet'
+    	];
+
+    	$this->visit('/posts/create')
+    		->type($data['titulo'], 'titulo')
+    		->type($data['contenido'], 'contenido')
+    		->press('Crear');
+
+    	$this->assertEquals(1, Post::count());
     }
 }

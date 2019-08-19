@@ -34,7 +34,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -45,7 +45,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $parameters = $request->all();
+        $user_id = \Auth::user()->id;
+        $parameters['user_id'] = $user_id;
+        Post::create($parameters);
     }
 
     /**
